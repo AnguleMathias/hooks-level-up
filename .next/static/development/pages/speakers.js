@@ -13567,15 +13567,14 @@ __webpack_require__.r(__webpack_exports__);
 var _jsxFileName = "/Users/mathias/Desktop/level-up/hooks/src/SpeakerDetail.js";
 
 
-
-var SpeakerDetail = function SpeakerDetail(_ref) {
+var SpeakerDetail = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (_ref) {
   var id = _ref.id,
       firstName = _ref.firstName,
       lastName = _ref.lastName,
       favorite = _ref.favorite,
       bio = _ref.bio,
       onHeartFavoriteHandler = _ref.onHeartFavoriteHandler;
-  //console.log(`SpeakerDetail:${id} ${firstName} ${lastName} ${favorite}`);
+  console.log("SpeakerDetail:".concat(id, " ").concat(firstName, " ").concat(lastName, " ").concat(favorite));
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card col-4 cardmin",
     __source: {
@@ -13631,8 +13630,7 @@ var SpeakerDetail = function SpeakerDetail(_ref) {
     },
     __self: this
   }, bio)));
-};
-
+});
 /* harmony default export */ __webpack_exports__["default"] = (SpeakerDetail);
 
 /***/ }),
@@ -13663,11 +13661,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SpeakerData__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./SpeakerData */ "./src/SpeakerData.js");
 /* harmony import */ var _SpeakerDetail__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./SpeakerDetail */ "./src/SpeakerDetail.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./App */ "./src/App.js");
+/* harmony import */ var _speakersReducer__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./speakersReducer */ "./src/speakersReducer.js");
 
 
 
 
 var _jsxFileName = "/Users/mathias/Desktop/level-up/hooks/src/Speakers.js";
+
 
 
 
@@ -13690,15 +13690,15 @@ var Speakers = function Speakers(_ref) {
       speakingSunday = _useState4[0],
       setSpeakingSunday = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])([]),
-      _useState6 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState5, 2),
-      speakerList = _useState6[0],
-      setSpeakerList = _useState6[1];
+  var _useReducer = Object(react__WEBPACK_IMPORTED_MODULE_4__["useReducer"])(_speakersReducer__WEBPACK_IMPORTED_MODULE_12__["default"], []),
+      _useReducer2 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useReducer, 2),
+      speakerList = _useReducer2[0],
+      dispatch = _useReducer2[1];
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(true),
-      _useState8 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState7, 2),
-      isLoading = _useState8[0],
-      setIsLoading = _useState8[1];
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(true),
+      _useState6 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState5, 2),
+      isLoading = _useState6[0],
+      setIsLoading = _useState6[1];
 
   var context = Object(react__WEBPACK_IMPORTED_MODULE_4__["useContext"])(_App__WEBPACK_IMPORTED_MODULE_11__["ConfigContext"]);
   Object(react__WEBPACK_IMPORTED_MODULE_4__["useEffect"])(function () {
@@ -13713,8 +13713,12 @@ var Speakers = function Speakers(_ref) {
         var sat = _ref2.sat,
             sun = _ref2.sun;
         return speakingSaturday && sat || speakingSunday && sun;
+      }); // setSpeakerList(speakerListServerFilter);
+
+      dispatch({
+        type: "setSpeakerList",
+        data: speakerListServerFilter
       });
-      setSpeakerList(speakerListServerFilter);
     });
     return function () {
       console.log("cleanup");
@@ -13745,79 +13749,74 @@ var Speakers = function Speakers(_ref) {
     setSpeakingSunday(!speakingSunday);
   };
 
-  var heartFavoriteHandler = function heartFavoriteHandler(e, favoriteValue) {
+  var heartFavoriteHandler = Object(react__WEBPACK_IMPORTED_MODULE_4__["useCallback"])(function (e, favoriteValue) {
     e.preventDefault();
 
     var sessionId = _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_0___default()(e.target.attributes["data-sessionid"].value);
 
-    setSpeakerList(speakerList.map(function (item) {
-      if (item.id === sessionId) {
-        item.favorite = favoriteValue;
-        return item;
-      }
-
-      return item;
-    })); //console.log("changing session favorte to " + favoriteValue);
-  };
-
+    dispatch({
+      type: favoriteValue === true ? "favorite" : "unfavorite",
+      sessionId: sessionId
+    });
+  }, []);
   if (isLoading) return react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 75
+      lineNumber: 76
     },
     __self: this
   }, "Loading...");
   return react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 78
+      lineNumber: 79
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_src_Header__WEBPACK_IMPORTED_MODULE_7__["Header"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 79
+      lineNumber: 80
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_src_Menu__WEBPACK_IMPORTED_MODULE_8__["Menu"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 80
+      lineNumber: 81
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "container",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 81
+      lineNumber: 82
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "btn-toolbar  margintopbottom5 checkbox-bigger",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 82
+      lineNumber: 83
     },
     __self: this
   }, context.showSpeakerSpeakingDays === false ? null : react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "hide",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 84
+      lineNumber: 85
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "form-check-inline",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 85
+      lineNumber: 86
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
     className: "form-check-label",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 86
+      lineNumber: 87
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("input", {
@@ -13827,21 +13826,21 @@ var Speakers = function Speakers(_ref) {
     checked: speakingSaturday,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 87
+      lineNumber: 88
     },
     __self: this
   }), "Saturday Speakers")), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "form-check-inline",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 96
+      lineNumber: 97
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
     className: "form-check-label",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 97
+      lineNumber: 98
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("input", {
@@ -13851,21 +13850,21 @@ var Speakers = function Speakers(_ref) {
     checked: speakingSunday,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 98
+      lineNumber: 99
     },
     __self: this
   }), "Sunday Speakers")))), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "row",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 110
+      lineNumber: 111
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "card-deck",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 111
+      lineNumber: 112
     },
     __self: this
   }, speakerListFiltered.map(function (_ref4) {
@@ -13884,7 +13883,7 @@ var Speakers = function Speakers(_ref) {
       bio: bio,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 115
+        lineNumber: 116
       },
       __self: this
     });
@@ -13892,6 +13891,52 @@ var Speakers = function Speakers(_ref) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Speakers);
+
+/***/ }),
+
+/***/ "./src/speakersReducer.js":
+/*!********************************!*\
+  !*** ./src/speakersReducer.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function speakersReducer(state, action) {
+  function updateFavorite(favoriteValue) {
+    return state.map(function (item, index) {
+      if (item.id === action.sessionId) {
+        item.favorite = favoriteValue;
+        return item;
+      }
+
+      return item;
+    });
+  }
+
+  switch (action.type) {
+    case "setSpeakerList":
+      {
+        return action.data;
+      }
+
+    case "favorite":
+      {
+        return updateFavorite(true);
+      }
+
+    case "unfavorite":
+      {
+        return updateFavorite(false);
+      }
+
+    default:
+      return state;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (speakersReducer);
 
 /***/ }),
 

@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import SignMeUp from "./SignMeUp";
+import { ConfigContext } from "./App";
 
 export const Header = () => {
+  const context = useContext(ConfigContext);
+  
   const signupCallback = email => {
     return console.log(`sign up called with email ${email}`);
   };
 
-  return (
+  return context.showHeader === false ? null : (
     <div className="jumbotron jumbotronheight">
       <div className="row">
         <div className="col-12 col-sm-4 text-center">

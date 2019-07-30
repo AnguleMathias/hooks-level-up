@@ -1569,7 +1569,7 @@ var pageToShow = function pageToShow(pageName) {
 
 var ConfigValue = {
   showSignMeUp: false,
-  showSpeakerSpeakingDays: false,
+  showSpeakerSpeakingDays: true,
   showHeader: false
 };
 
@@ -2409,21 +2409,24 @@ var Speakers = function Speakers(_ref) {
     setSpeakingSaturday(!speakingSaturday);
   };
 
-  var speakerListFiltered = isLoading ? [] : speakerList.filter(function (_ref3) {
-    var sat = _ref3.sat,
-        sun = _ref3.sun;
-    return speakingSaturday && sat || speakingSunday && sun;
-  }).sort(function (a, b) {
-    if (a.firstName < b.firstName) {
-      return -1;
-    }
+  var newSpeakersList = Object(react__WEBPACK_IMPORTED_MODULE_4__["useMemo"])(function () {
+    return speakerList.filter(function (_ref3) {
+      var sat = _ref3.sat,
+          sun = _ref3.sun;
+      return speakingSaturday && sat || speakingSunday && sun;
+    }).sort(function (a, b) {
+      if (a.firstName < b.firstName) {
+        return -1;
+      }
 
-    if (a.firstName > b.firstName) {
-      return 1;
-    }
+      if (a.firstName > b.firstName) {
+        return 1;
+      }
 
-    return 0;
-  });
+      return 0;
+    });
+  }, [speakingSaturday, speakingSunday, speakerList]);
+  var speakerListFiltered = isLoading ? [] : newSpeakersList;
 
   var handleChangeSunday = function handleChangeSunday() {
     setSpeakingSunday(!speakingSunday);
@@ -2442,61 +2445,61 @@ var Speakers = function Speakers(_ref) {
   if (isLoading) return react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 76
+      lineNumber: 78
     },
     __self: this
   }, "Loading...");
   return react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 79
+      lineNumber: 81
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_src_Header__WEBPACK_IMPORTED_MODULE_7__["Header"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 80
+      lineNumber: 82
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_src_Menu__WEBPACK_IMPORTED_MODULE_8__["Menu"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 81
+      lineNumber: 83
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "container",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 82
+      lineNumber: 84
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "btn-toolbar  margintopbottom5 checkbox-bigger",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 83
+      lineNumber: 85
     },
     __self: this
   }, context.showSpeakerSpeakingDays === false ? null : react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "hide",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 85
+      lineNumber: 87
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "form-check-inline",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 86
+      lineNumber: 88
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
     className: "form-check-label",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 87
+      lineNumber: 89
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("input", {
@@ -2506,21 +2509,21 @@ var Speakers = function Speakers(_ref) {
     checked: speakingSaturday,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 88
+      lineNumber: 90
     },
     __self: this
   }), "Saturday Speakers")), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "form-check-inline",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 97
+      lineNumber: 99
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
     className: "form-check-label",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 98
+      lineNumber: 100
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("input", {
@@ -2530,21 +2533,21 @@ var Speakers = function Speakers(_ref) {
     checked: speakingSunday,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 99
+      lineNumber: 101
     },
     __self: this
   }), "Sunday Speakers")))), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "row",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 111
+      lineNumber: 113
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "card-deck",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 112
+      lineNumber: 114
     },
     __self: this
   }, speakerListFiltered.map(function (_ref4) {
@@ -2563,7 +2566,7 @@ var Speakers = function Speakers(_ref) {
       bio: bio,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 116
+        lineNumber: 118
       },
       __self: this
     });
